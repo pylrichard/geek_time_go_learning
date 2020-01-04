@@ -7,6 +7,22 @@ import (
 	"testing"
 )
 
+type MyInt int64
+
+func TestImplicit(t *testing.T) {
+	var a int32 = 1
+	var b int64
+	//不允许隐式类型转换
+	//b = a
+	b = int64(a)
+	var c MyInt
+	//别名类型不允许隐式类型转换
+	//c = b
+	c = MyInt(b)
+
+	t.Log(a, b, c)
+}
+
 func TestInt(t *testing.T) {
 	cpu := runtime.GOARCH
 	size := strconv.IntSize
@@ -17,8 +33,11 @@ func TestInt(t *testing.T) {
 func TestString(t *testing.T) {
 	var s string
 	//string是值类型，默认初始化值是空字符串，不是nil
+	//加上*识别空字符串
 	t.Log("*" + s + "*")
 	t.Log(len(s))
+	//字符串判空
+	if s == "" {}
 	t.Logf("%T %q", s, s)
 }
 
