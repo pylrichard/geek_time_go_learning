@@ -7,11 +7,13 @@ import (
 	"time"
 )
 
+type IntConv func(op int) int
+
 func returnMultiValues() (int, int) {
 	return rand.Intn(10), rand.Intn(20)
 }
 
-func calculateTime(inner func(op int) int) func(op int) int {
+func calculateTime(inner IntConv) IntConv {
 	return func(n int) int {
 		start := time.Now()
 		ret := inner(n)
